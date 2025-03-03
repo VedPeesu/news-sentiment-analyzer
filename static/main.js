@@ -56,4 +56,76 @@ class NewsAggregatorApp {
         const container = document.getElementById('articlesContainer');
         container.appendChild(successDiv);
     }
-}
+
+    async makeRequest(url, data = null) {
+        try {
+            const options = {
+                method: data ? 'POST' : 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            };
+
+            if (data) {
+                options.body = JSON.stringify(data);
+            }
+
+            const response = await fetch(url, options);
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.error || 'An error occurred');
+            }
+
+            return result;
+        } catch (error) {
+            console.error('Request failed:', error);
+            throw error;
+        }
+    }
+
+    async searchByCategory() {
+        const category = document.getElementById('categorySelect').value;
+        
+        if (!category) {
+            this.showError('Please select a category');
+            return;
+        }
+
+        this.showLoading();
+
+        try {
+            const result = await this.makeRequest(`${this.baseUrl}/api/articles/category`, {
+                category: category
+            });
+
+            this.displayArticles(result.articles, `Top ${category.charAt(0).toUpperCase() + category.slice(1)} Headlines`);
+        } catch (error) {
+            this.showError(error.message);
+        } finally {
+            this.hideLoading();
+        }
+    }
+
+    async searchByQuery() {
+        const query = document.getElementById('queryInput').value.trim();
+        
+        if (!query) {
+            this.showError('Please enter a search query');
+            return;
+        }
+
+        this.showLoading();
+
+        try {
+            const result = await this.makeRequest(`${this.baseUrl}/api/articles/query`, {
+                query: query
+            });
+
+            this.displayArticles(result.articles, `Search Results for "${query}"`);
+        } catch (error) {
+            this.showError(error.message);
+        } finally {
+            this.hideLoading();
+        }
+    }
