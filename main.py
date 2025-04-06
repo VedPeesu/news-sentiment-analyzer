@@ -23,3 +23,28 @@ class NewsAPIClient:
             print("Error retrieving articles:", response.status_code)
             print("Response Text:", response.text) 
             return []
+        
+    def get_articles_by_category(self, category):
+        params = {
+            "category": category,
+            "sortBy": "top",
+            "country": "us",
+            "apiKey": self.api_key
+        }
+        return self.retrieve_articles('/top-headlines', params)
+
+    def get_articles_by_query(self, query):
+        params = {
+            "q": query,
+            "sortBy": "top",
+            "apiKey": self.api_key
+        }
+        return self.retrieve_articles('/everything', params)
+
+    def get_sources_by_category(self, category):
+        params = {
+            "category": category,
+            "language": "en",
+            "apiKey": self.api_key
+        }
+        return self.retrieve_articles('/top-headlines/sources', params)
