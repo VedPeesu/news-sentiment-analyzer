@@ -1,8 +1,8 @@
-# NewsAggregatorSentimentAnalysis
+# News Sentiment Analyzer
 
-A modern full-stack application to get articles with keywords through a news API which involves aggregation, web scraping, parsing, and natural language processing. It sends users headlines and links to the top articles for a keyword. 
+A full-stack application that aggregates news articles using a keyword search, then performs sentiment analysis using natural language processing (NLP). It combines aggregation, and web scraping to deliver top headlines, links, and sentiment insights across many topics in real time.
 
-#Features
+##Features
 - News aggregation related to user inputted keywords, retreiving top headlines with links.
 - Summarization of articles for users to quickly gain information
 - Real time sentiment analysis with a rating and score for users to understand the current situation.
