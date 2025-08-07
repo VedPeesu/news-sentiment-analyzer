@@ -19,7 +19,7 @@ A full-stack application that aggregates news articles using a keyword search, t
    cd NewsAggregatorSentimentAnalysis
    ```
 
-2. **Create a virtual environment (recommended)**
+2. **Create a virtual environment**
    ```bash
    python -m venv venv
    
